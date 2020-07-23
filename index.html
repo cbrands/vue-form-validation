@@ -12,35 +12,69 @@
     <title>Form vaildation</title>
   </head>
   <body>
-    <div id="app">
-      <h1>Form Validation</h1>
+    <div class="container">
+      <div class="row">
+        <div id="app" class="col-md-6 mx-auto">
+          <h1>Form Validation</h1>
 
-      <p style="color: red;">{{ error }}</p>
+          <p style="color: red;">{{ error }}</p>
 
-      <form method="post" action="#">
-        <div>
-          <label for="name">Name</label>
-          <input name="name" id="name" v-model="form.name" />
-          <p style="color: red;">{{ nameValidation }}</p>
+          <form novalidate method="post" action="#">
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                class="form-control"
+                name="name"
+                id="name"
+                v-model="form.name"
+                required
+              />
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">{{ nameValidation }}</div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input
+                class="form-control"
+                name="email"
+                id="email"
+                v-model="form.email"
+              />
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">{{ emailValidation }}</div>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                class="form-control"
+                name="password"
+                id="password"
+                v-model="form.password"
+              />
+              <div class="invalid-feedback">{{ passwordValidation }}</div>
+            </div>
+            <div class="mb-3">
+              <label for="password2" class="form-label">Confirm password</label>
+              <input
+                class="form-control"
+                name="password2"
+                id="password2"
+                v-model="form.password2"
+              />
+              <div class="invalid-feedback">{{ password2Validation }}</div>
+            </div>
+            <button class="btn btn-primary" @click.prevent="validateForm">
+              Send Form
+            </button>
+          </form>
         </div>
-        <div>
-          <label for="email">Email</label>
-          <input name="email" id="email" v-model="form.email" />
-          <p style="color: red;">{{ emailValidation }}</p>
-        </div>
-        <div>
-          <label for="password">Password</label>
-          <input name="password" id="password" v-model="form.password" />
-          <p style="color: red;">{{ passwordValidation }}</p>
-        </div>
-        <div>
-          <label for="password2">Confirm password</label>
-          <input name="password2" id="password2" v-model="form.password2" />
-          <p style="color: red;">{{ password2Validation }}</p>
-        </div>
-        <button @click.prevent="validateForm">Send Form</button>
-      </form>
+      </div>
     </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
       integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
@@ -75,23 +109,47 @@
         },
         computed: {
           nameValidation: function () {
+            let el = document.getElementById('name');
             if (!this.form.name.length && this.error) {
+              el.classList.add('is-invalid');
+              el.classList.remove('is-valid');
               return 'Name Field is Required';
+            } else {
+              el.classList.add('is-valid');
+              el.classList.remove('is-invalid');
             }
           },
           emailValidation: function () {
+            let el = document.getElementById('email');
+            el.classList.add('is-invalid');
+            el.classList.remove('is-valid');
             if (!this.form.email.length && this.error) {
               return 'Email Field is Required';
+            } else {
+              el.classList.add('is-valid');
+              el.classList.remove('is-invalid');
             }
           },
           passwordValidation: function () {
+            let el = document.getElementById('password');
             if (!this.form.password.length && this.error) {
+              el.classList.add('is-invalid');
+              el.classList.remove('is-valid');
               return 'Password Field is Required';
+            } else {
+              el.classList.add('is-valid');
+              el.classList.remove('is-invalid');
             }
           },
           password2Validation: function () {
+            let el = document.getElementById('password2');
             if (!this.form.password2.length && this.error) {
+              el.classList.add('is-invalid');
+              el.classList.remove('is-valid');
               return 'Password must be confirmed';
+            } else {
+              el.classList.add('is-valid');
+              el.classList.remove('is-invalid');
             }
           },
         },
